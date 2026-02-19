@@ -1,81 +1,98 @@
-# Intercom
+my trac/ TNC adress : trac1mgw9yk3t7y4k52xtzyp769e4rcwckwvee0tff7a7vfhjh3cyfzhsrgehyq
 
-This repository is a reference implementation of the **Intercom** stack on Trac Network for an **internet of agents**.
+# 🛠️ Multi-Chain Crypto Scanner
 
-At its core, Intercom is a **peer-to-peer (P2P) network**: peers discover each other and communicate directly (with optional relaying) over the Trac/Holepunch stack (Hyperswarm/HyperDHT + Protomux). There is no central server required for sidechannel messaging.
+A simple and interactive **multi-chain cryptocurrency balance scanner** for Ethereum (ETH), BNB Chain (BNB), Base (BASE), Solana (SOL), and TRAC/TNK.  
+Scan balances of individual addresses easily from the terminal with colorful output.
 
-Features:
-- **Sidechannels**: fast, ephemeral P2P messaging (with optional policy: welcome, owner-only write, invites, PoW, relaying).
-- **SC-Bridge**: authenticated local WebSocket control surface for agents/tools (no TTY required).
-- **Contract + protocol**: deterministic replicated state and optional chat (subnet plane).
-- **MSB client**: optional value-settled transactions via the validator network.
+---1️⃣ Ethereum (ETH)
+2️⃣ BNB Chain (BNB)
+3️⃣ Base (BASE)
+4️⃣ Solana (SOL)
+5️⃣ TRAC/TNK Custom Address
 
-Additional references: https://www.moltbook.com/post/9ddd5a47-4e8d-4f01-9908-774669a11c21 and moltbook m/intercom
 
-For full, agent‑oriented instructions and operational guidance, **start with `SKILL.md`**.  
-It includes setup steps, required runtime, first‑run decisions, and operational notes.
-
-## Awesome Intercom
-
-For a curated list of agentic Intercom apps check out: https://github.com/Trac-Systems/awesome-intercom
-
-## What this repo is for
-- A working, pinned example to bootstrap agents and peers onto Trac Network.
-- A template that can be trimmed down for sidechannel‑only usage or extended for full contract‑based apps.
-
-## How to use
-Use the **Pear runtime only** (never native node).  
-Follow the steps in `SKILL.md` to install dependencies, run the admin peer, and join peers correctly.
-
-## Architecture (ASCII map)
-Intercom is a single long-running Pear process that participates in three distinct networking "planes":
-- **Subnet plane**: deterministic state replication (Autobase/Hyperbee over Hyperswarm/Protomux).
-- **Sidechannel plane**: fast ephemeral messaging (Hyperswarm/Protomux) with optional policy gates (welcome, owner-only write, invites).
-- **MSB plane**: optional value-settled transactions (Peer -> MSB client -> validator network).
-
-```text
-                          Pear runtime (mandatory)
-                pear run . --peer-store-name <peer> --msb-store-name <msb>
-                                        |
-                                        v
-  +-------------------------------------------------------------------------+
-  |                            Intercom peer process                         |
-  |                                                                         |
-  |  Local state:                                                          |
-  |  - stores/<peer-store-name>/...   (peer identity, subnet state, etc)    |
-  |  - stores/<msb-store-name>/...    (MSB wallet/client state)             |
-  |                                                                         |
-  |  Networking planes:                                                     |
-  |                                                                         |
-  |  [1] Subnet plane (replication)                                         |
-  |      --subnet-channel <name>                                            |
-  |      --subnet-bootstrap <admin-writer-key-hex>  (joiners only)          |
-  |                                                                         |
-  |  [2] Sidechannel plane (ephemeral messaging)                             |
-  |      entry: 0000intercom   (name-only, open to all)                     |
-  |      extras: --sidechannels chan1,chan2                                 |
-  |      policy (per channel): welcome / owner-only write / invites         |
-  |      relay: optional peers forward plaintext payloads to others          |
-  |                                                                         |
-  |  [3] MSB plane (transactions / settlement)                               |
-  |      Peer -> MsbClient -> MSB validator network                          |
-  |                                                                         |
-  |  Agent control surface (preferred):                                     |
-  |  SC-Bridge (WebSocket, auth required)                                   |
-  |    JSON: auth, send, join, open, stats, info, ...                       |
-  +------------------------------+------------------------------+-----------+
-                                 |                              |
-                                 | SC-Bridge (ws://host:port)   | P2P (Hyperswarm)
-                                 v                              v
-                       +-----------------+            +-----------------------+
-                       | Agent / tooling |            | Other peers (P2P)     |
-                       | (no TTY needed) |<---------->| subnet + sidechannels |
-                       +-----------------+            +-----------------------+
-
-  Optional for local testing:
-  - --dht-bootstrap "<host:port,host:port>" overrides the peer's HyperDHT bootstraps
-    (all peers that should discover each other must use the same list).
-```
+- **Select a chain** by typing the number  
+- **Option 0** automatically uses the default TRAC address  
+- Enter **custom addresses** for other chains  
+- Get **real-time balance output** in the console  
+- Designed for **single address scan at a time** for accuracy  
 
 ---
-If you plan to build your own app, study the existing contract/protocol and remove example logic as needed (see `SKILL.md`).
+
+## ⚡ Features
+
+- ✅ Scan balances for ETH, BNB, BASE, SOL, and TRAC/TNK  
+- ✅ Default TRAC address included at the top of menu  
+- ✅ Interactive numeric menu for easy navigation  
+- ✅ Colorful terminal display using **chalk**  
+- ✅ Public RPC support (no API keys required for ETH, BNB, BASE, SOL)  
+- ✅ TRAC/TNK balance scraping from official explorer  
+
+---
+
+## 🛠️ Tools & Libraries
+
+- [ethers.js](https://www.npmjs.com/package/ethers) – Ethereum, BNB, BASE RPC  
+- [@solana/web3.js](https://www.npmjs.com/package/@solana/web3.js) – Solana RPC  
+- [axios](https://www.npmjs.com/package/axios) – HTTP requests  
+- [cheerio](https://www.npmjs.com/package/cheerio) – Web scraping TRAC/TNK  
+- [chalk](https://www.npmjs.com/package/chalk) – Terminal color styling  
+- [readline](https://nodejs.org/api/readline.html) – Interactive user input  
+
+---
+
+## 🚀 Installation
+
+1. Clone this repository:
+
+```bash
+git clone https://github.com/YourUsername/intercom.git
+cd intercom/scanner
+
+
+Install dependencies:
+
+npm install ethers @solana/web3.js axios cheerio chalk
+
+
+Run the scanner:
+
+node multichain.js
+
+📖 Usage
+
+Run the program:
+
+node multichain.js
+
+
+Choose a chain from the menu (0-5)
+
+0 → TRAC/TNK default address (trac1mgw9yk3t7y4k52xtzyp769e4rcwckwvee0tff7a7vfhjh3cyfzhsrgehyq)
+
+5 → TRAC/TNK custom address
+
+Enter the address (if applicable)
+
+See the balance output directly in the console
+
+🌟 Future Enhancements
+
+Loop scanning multiple addresses without restarting
+
+Export scan results to CSV or JSON
+
+Live balance monitoring for multiple addresses
+
+Additional TRAC/TNK API integration
+
+⚠️ Notes
+
+Only one address at a time is scanned per run
+
+Ensure the address is correct for accurate balance results
+
+Free public RPCs may be slow or temporarily unavailable 
+
+![alt text](<Screenshot 2026-02-19 201929.png>)
