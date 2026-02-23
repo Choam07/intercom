@@ -47,7 +47,7 @@ Scan balances of individual addresses easily from the terminal with colorful out
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/YourUsername/intercom.git
+git clone https://github.com/Choam07/intercom.git
 cd intercom/scanner
 
 
